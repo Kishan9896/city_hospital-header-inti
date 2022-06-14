@@ -9,6 +9,7 @@ import { Route } from "react-router-dom";
 import Doctors from './Container/Department/Doctors';
 import About from './Container/Department/About';
 import Contact from './Container/Department/Contact';
+import Login from './Container/Login';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Route path="/doctors" exact component={Doctors} />
       <Route path="/about"  exact component={About}/>
       <Route path="/contact" exact component={Contact}/>
+      <Route path="/login" exact component={Login} />
     </Switch>
     <Footer />
     </>
