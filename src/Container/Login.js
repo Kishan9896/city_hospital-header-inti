@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 function Login(props) {
     const [login, setLogin] = useState('Login');
+    const [reset, setReset] = useState([]);
 
 
     return (
@@ -10,6 +11,11 @@ function Login(props) {
                 <div className="container">
                     <div className="section-title">
                         {
+                            // reset ?
+                            // <h2>
+                            //     Forgot Password
+                            // </h2>
+                            // :
                             login === 'Login' ?
                                 <h2>Login</h2>
                                 :
@@ -33,6 +39,7 @@ function Login(props) {
                                 <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
                                 <div className="validate" />
                             </div>
+
                         </div>
                         <div className='row'>
                             <div className="col-md-4 form-group">
@@ -41,16 +48,20 @@ function Login(props) {
                             </div>
                         </div>
                         {
+
                             login === 'Login' ?
                             <div>
-                                <span>Forgot Password:</span><button onClick={() => {setLogin('Singup')}}>Click Here</button>       
+                                <span>Create a Account:</span><button onClick={() => {setLogin('Singup'); setReset(false)}}>Click Here</button>       
                             </div>
                             :
                             <div>
-                                <span>Forgot Password:</span><button onClick={() => {setLogin('Singup')}}>Click Here</button>       
+                                <span>Already Have an Account?</span><button onClick={() => {setLogin('Login'); setReset(false)}}>Click Here</button>       
                             </div>
                         }
+                        
                         <div className="text-center"><button type="submit">Login</button></div>
+                        
+
                         
                     </div>
                 </div>
