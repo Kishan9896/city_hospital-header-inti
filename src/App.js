@@ -11,6 +11,7 @@ import About from './Container/Department/About';
 import Contact from './Container/Department/Contact';
 import Login from './Container/Login';
 import Medicine from './Container/Medicine/Medicine';
+import Refexample from './Component/RefExample/Refexample';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Route path="/contact" exact component={Contact}/>
       <Route path="/login" exact component={Login} />
       <Route path="/Medicine" exact component={Medicine} />
+      <Route path="/RefExample" exact component={Refexample}/>
     </Switch>
     <Footer />
     </>

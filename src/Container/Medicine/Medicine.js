@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from 'reactstrap';
 import List from '../../Component/List/List';
 
 function Medicine(props) {
@@ -40,9 +41,15 @@ function Medicine(props) {
             expiry: 2021
         },
     ]
+
+    const idref = (idRef) => {
+        console.log(idRef);
+    } 
+
     return (
         <div>
             <List
+            idRef = {idref}
             data = {orgData} 
             />
         </div>
