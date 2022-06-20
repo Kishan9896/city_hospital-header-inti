@@ -4,37 +4,57 @@ import { Form, Formik, useFormik } from 'formik';
 
 function Login(props) {
     const [login, setLogin] = useState('Login');
-    const [reset, setReset] = useState([]);
+    const [reset, setReset] = useState(false);
 
-    let schema = yup.object().shape({
-        email: yup.string().required("Please Enter Your Email.").email(),
-        password: yup.string().min(4).required("Please Enter Your Password.")
-    })
+    let schemaObj;
+    let initialValu;
 
-    const formik = useFormik({
-        initialValues: {
+    if (login === "Login") {
+        schemaObj = {
+            email: yup.string().required("Please Enter Your Email.").email(),
+            password: yup.string().min(4).required("Please Enter Your Password.")
+        }
+        initialValu = {
             email: '',
             password: ''
-        },
+        }
+    } else if (login === "Singup") {
+        schemaObj = {
+            name: yup.string().required("Please Enter Your Name."),
+            email: yup.string().required("Please Enter Your Email.").email(),
+            password: yup.string().min(4).required("Please Enter Your Password.")
+        }
+        initialValu = {
+            name: '',
+            email: '',
+            password: ''
+        }
+    }
+
+    let schema = yup.object().shape(schemaObj)
+
+    const formik = useFormik({
+        initialValues: initialValu,
         validationSchema: schema,
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2));
         },
     });
 
-    const { handleSubmit, handleChange, errors } = formik
+    const { handleSubmit, handleChange, handleBlur, errors, touched } = formik
 
     return (
         <main>
             <section id="appointment" className="appointment">
                 <div className="container">
+                    
                     <div className="section-title">
                         {
-                            // reset ?
-                            // <h2>
-                            //     Forgot Password
-                            // </h2>
-                            // :
+                            reset ?
+                            <h2>
+                                Forgot Password
+                            </h2>
+                            :
                             login === 'Login' ?
                                 <h2>Login</h2>
                                 :
@@ -44,45 +64,64 @@ function Login(props) {
                     <Formik values={formik}>
                         <Form onSubmit={handleSubmit} action method="post" role="form" className="php-email-form">
                             <div className="row">
-                                {
+                                {   
+                                    reset ?
+                                        null
+                                    :
                                     login === 'Login' ?
                                         null
                                         :
                                         <div className='row'>
                                             <div className="col-md-4 form-group">
-                                                <input type="Name" name="Name" className="form-control" id="Name" placeholder="Your Enter Name" />
+                                                <input type="Name" name="Name" className="form-control" id="Name" placeholder="Your Enter Name" onChange={handleChange} onBlur={handleBlur} />
                                                 <div className="validate" />
+                                                <p>{errors.name && touched.name ? errors.name : ''}</p>
                                             </div>
                                         </div>
                                 }
                                 <div className="col-md-4 form-group mt-3 mt-md-0">
-                                    <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" onChange={handleChange} />
+                                    <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" onChange={handleChange} onBlur={handleBlur} />
                                     <div className="validate" />
-                                    <p>{errors.email}</p>
+                                    <p>{errors.email && touched.email ? errors.email: ''}</p>
                                     
                                 </div>
 
                             </div>
-                            <div className='row'>
+                            {
+                                reset ?
+                                null
+                                :
+                                <div className='row'>
                                 <div className="col-md-4 form-group">
-                                    <input type="password" name="password" className="form-control" id="password" placeholder="Your password" />
+                                    <input type="password" name="password" className="form-control" id="password" placeholder="Your password" onChange={handleChange} onBlur={handleBlur} />
                                     <div className="validate" />
-                                    <p>{errors.password}</p>
+                                    <p>{errors.password && touched.password ? errors.password: ''}</p>
                                 </div>
                             </div>
+                            }
+                            
                             {
 
                                 login === 'Login' ?
                                     <div>
-                                        <span>Create a Account:</span><button onClick={() => { setLogin('Singup'); setReset(false) }}>Click Here</button>
+                                        <span>Create a Account:</span><button type='button' onClick={() => { setLogin('Singup'); setReset(false) }}>Click Here</button>
                                     </div>
                                     :
                                     <div>
-                                        <span>Already Have an Account?</span><button onClick={() => { setLogin('Login'); setReset(false) }}>Click Here</button>
+                                        <span>Already Have an Account?</span><button type='button' onClick={() => { setLogin('Login'); setReset(false) }}>Click Here</button>
                                     </div>
                             }
-
-                            <div className="text-center"><button type="submit">Login</button></div>
+                            <button onClick={() => {setReset(true)}}>Forgot Password</button>
+                            {
+                                reset ?
+                                <div className="text-center"><button type="submit">submit</button></div>
+                                :
+                                login === "Login" ?
+                                <div className="text-center"><button type="submit">Login</button></div>
+                                :
+                                <div className="text-center"><button type="submit">Singup</button></div>
+                            }
+                            
 
                         </Form>
                     </Formik>
