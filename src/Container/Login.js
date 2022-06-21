@@ -36,12 +36,16 @@ function Login(props) {
     const formik = useFormik({
         initialValues: initialValu,
         validationSchema: schema,
-        onSubmit: values => {
+        onSubmit: (values, action) => {
             alert(JSON.stringify(values, null, 2));
+            // console.log(action);
+            action.resetForm();
         },
+        enableReinitialize: true
     });
 
-    const { handleSubmit, handleChange, handleBlur, errors, touched } = formik
+    const { handleSubmit, handleChange, handleBlur, errors, touched, values } = formik
+    console.log(errors);
 
     return (
         <main>
@@ -58,11 +62,11 @@ function Login(props) {
                             login === 'Login' ?
                                 <h2>Login</h2>
                                 :
-                                <h2>Signup</h2>
+                                <h2>Singup</h2>
                         }
                     </div>
                     <Formik values={formik}>
-                        <Form onSubmit={handleSubmit} action method="post" role="form" className="php-email-form">
+                        <Form onSubmit={handleSubmit} className="php-email-form">
                             <div className="row">
                                 {   
                                     reset ?
@@ -73,15 +77,13 @@ function Login(props) {
                                         :
                                         <div className='row'>
                                             <div className="col-md-4 form-group">
-                                                <input type="Name" name="Name" className="form-control" id="Name" placeholder="Your Enter Name" onChange={handleChange} onBlur={handleBlur} />
-                                                <div className="validate" />
+                                                <input type="text" name="name" className="form-control" id="Name" placeholder="Your Enter Name" onChange={handleChange} onBlur={handleBlur} value={values.name} />
                                                 <p>{errors.name && touched.name ? errors.name : ''}</p>
                                             </div>
                                         </div>
                                 }
                                 <div className="col-md-4 form-group mt-3 mt-md-0">
-                                    <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" onChange={handleChange} onBlur={handleBlur} />
-                                    <div className="validate" />
+                                    <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
                                     <p>{errors.email && touched.email ? errors.email: ''}</p>
                                     
                                 </div>
@@ -93,8 +95,7 @@ function Login(props) {
                                 :
                                 <div className='row'>
                                 <div className="col-md-4 form-group">
-                                    <input type="password" name="password" className="form-control" id="password" placeholder="Your password" onChange={handleChange} onBlur={handleBlur} />
-                                    <div className="validate" />
+                                    <input type="password" name="password" className="form-control" id="password" placeholder="Your password" onChange={handleChange} onBlur={handleBlur} value={values.password}/>
                                     <p>{errors.password && touched.password ? errors.password: ''}</p>
                                 </div>
                             </div>
@@ -122,7 +123,6 @@ function Login(props) {
                                 <div className="text-center"><button type="submit">Singup</button></div>
                             }
                             
-
                         </Form>
                     </Formik>
                 </div>

@@ -12,6 +12,7 @@ import Contact from './Container/Department/Contact';
 import Login from './Container/Login';
 import Medicine from './Container/Medicine/Medicine';
 import Refexample from './Component/RefExample/Refexample';
+import Appointment from './Container/Department/Appointment';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path="/login" exact component={Login} />
       <Route path="/Medicine" exact component={Medicine} />
       <Route path="/RefExample" exact component={Refexample}/>
+      <Route path="/appointment" exact component={Appointment} />
     </Switch>
     <Footer />
     </>
