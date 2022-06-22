@@ -33,12 +33,22 @@ function Login(props) {
 
     let schema = yup.object().shape(schemaObj)
 
+    const localStorages = (values) => {
+        
+        const localData = JSON.parse(localStorage.getItem('user'))
+        if (localData === null) {
+            localStorage.setItem('user', JSON.stringify([values]))
+        } else {
+            localData.push(values)
+            localStorage.setItem('user', JSON.stringify(localData))
+        }
+    }
+
     const formik = useFormik({
         initialValues: initialValu,
         validationSchema: schema,
         onSubmit: (values, action) => {
-            alert(JSON.stringify(values, null, 2));
-            // console.log(action);
+            localStorages(values);
             action.resetForm();
         },
         enableReinitialize: true
