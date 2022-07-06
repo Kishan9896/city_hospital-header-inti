@@ -15,7 +15,25 @@ function Appointment(props) {
     message: yup.string()
   });
 
-  const Formik = useFormik({
+  const local = (values) => {
+    const localData = JSON.parse(localStorage.getItem("Apt"));
+
+    const id = Math.floor(Math.random()* 1000);
+
+    const dataIn = {
+      id: id,
+      ...values
+    }
+
+    if (localData === null) {
+      localStorage.setItem("Apt", JSON.stringify([dataIn]));
+    } else {
+      localData.push(dataIn);
+      localStorage.setItem("Apt", JSON.stringify(localData))
+    }
+  }
+
+  const FormikOrg = useFormik({
     initialValues: {
         name: '',
       email: '',
@@ -25,12 +43,13 @@ function Appointment(props) {
       message: ''
     },
     validationSchema: schema,
-    onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: (values, action) => {
+      local(values);
+      action.resetForm();
     },
   });
 
-  const { handleSubmit, handleChange, handleBlur, touched, errors, values } = Formik
+  const { handleSubmit, handleChange, handleBlur, touched, errors, values } = FormikOrg
 
   return (
     <main>
@@ -38,16 +57,9 @@ function Appointment(props) {
         <div className="container">
           <div className="section-title">
             <h2>Make an Appointment</h2>
-            <p>
-              Aenean enim orci, suscipit vitae sodales ac, semper in ex. Nunc
-              aliquam eget nibh eu euismod. Donec dapibus blandit quam volutpat
-              sollicitudin. Fusce tincidunt sit amet ex in volutpat. Donec
-              lacinia finibus tortor. Curabitur luctus eleifend odio. Phasellus
-              placerat mi et suscipit pulvinar.
-            </p>
           </div>
-          <formik values={Formik}>
-          <form onSubmit={handleSubmit} className="php-email-form">
+          <Formik values={FormikOrg}>
+          <Form onSubmit={handleSubmit} className="php-email-form">
             <div className="row">
               <div className="col-md-4 form-group">
                 <input
@@ -65,7 +77,7 @@ function Appointment(props) {
               </div>
               <div className="col-md-4 form-group mt-3 mt-md-0">
                 <input
-                  type="email"
+                  type="text"
                   className="form-control"
                   name="email"
                   id="email"
@@ -95,7 +107,7 @@ function Appointment(props) {
             <div className="row">
               <div className="col-md-4 form-group mt-3">
                 <input
-                  type="datetime"
+                  type="date"
                   name="date"
                   className="form-control datepicker"
                   id="date"
@@ -145,8 +157,8 @@ function Appointment(props) {
             <div className="text-center">
               <button type="submit">Make an Appointment</button>
             </div>
-          </form>
-          </formik>
+          </Form>
+          </Formik>
         </div>
       </section>
     </main>
