@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as yup from "yup";
 import { Form, Formik, useFormik } from 'formik';
+import { NavLink } from "react-router-dom";
 
 function Appointment(props) {
   const [appointment, setAppoinment] = useState();
@@ -57,6 +58,11 @@ function Appointment(props) {
         <div className="container">
           <div className="section-title">
             <h2>Make an Appointment</h2>
+            <div className="row">
+              <div className="col-6">
+              </div>
+              <div className="col-6"></div>
+            </div>
           </div>
           <Formik values={FormikOrg}>
           <Form onSubmit={handleSubmit} className="php-email-form">
@@ -72,6 +78,7 @@ function Appointment(props) {
                   data-msg="Please enter at least 4 chars"
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  value={values.name}
                 />
                 <p>{errors.name && touched.name ? errors.name : ''}</p>
               </div>
@@ -86,6 +93,7 @@ function Appointment(props) {
                   data-msg="Please enter a valid email"
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  value={values.email}
                 />
                 <p>{errors.email && touched.email ? errors.email : ''}</p>
               </div>
@@ -100,6 +108,7 @@ function Appointment(props) {
                   data-msg="Please enter at least 4 chars"
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  value={values.phone}
                 />
                 <p>{errors.phone && touched.phone ? errors.phone : ''}</p>
               </div>
@@ -116,6 +125,7 @@ function Appointment(props) {
                   data-msg="Please enter at least 4 chars"
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  value={values.date}
                 />
                 <p>{errors.date && touched.date ? errors.date : ''}</p>
               </div>
@@ -126,6 +136,7 @@ function Appointment(props) {
                   className="form-select"
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  value={values.department}
                 >
                   <option value>Select Department</option>
                   <option value="Department 1">Department 1</option>
@@ -144,6 +155,7 @@ function Appointment(props) {
                 defaultValue={""}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                value={values.message}
               />
               <p>{errors.message && touched.message ? errors.message : ''}</p>
             </div>
