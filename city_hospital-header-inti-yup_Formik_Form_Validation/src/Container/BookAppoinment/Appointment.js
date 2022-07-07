@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { Form, Formik, useFormik } from "formik";
 import { NavLink, useHistory } from "react-router-dom";
 
 function Appointment(props) {
+  const [update, setUpdate] = useState(false);
   const history = useHistory();
   const [appointment, setAppoinment] = useState();
   const phoneReg =
@@ -41,6 +42,38 @@ function Appointment(props) {
     history.push("/listappoinment");
   };
 
+  useEffect(() => {
+    const localData = JSON.parse(localStorage.getItem("Apt"));
+
+    if (props.location.state && localData !== null) {
+      const Fdata = localData.filter((l) => l.id === props.location.state.id);
+      FormikOrg.setValues(Fdata[0]);
+      setUpdate(true);
+    }
+    history.replace();
+  }, []);
+
+  const handleUpdate = (values) => {
+    const Udata = JSON.parse(localStorage.getItem("Apt"));
+
+    const updateData = Udata.map((l) => {
+      if (l.id === values.id) {
+        return values;
+      } else {
+        return l;
+      }
+    });
+    localStorage.setItem("Apt", JSON.stringify(updateData));
+    FormikOrg.resetForm();
+    history.replace("/listappoinment");
+    setUpdate(false);
+  };
+
+  const reset = () => {
+    FormikOrg.resetForm();
+    setUpdate(false);
+  }
+
   const FormikOrg = useFormik({
     initialValues: {
       name: "",
@@ -51,9 +84,12 @@ function Appointment(props) {
       message: "",
     },
     validationSchema: schema,
-    onSubmit: (values, action) => {
-      local(values);
-      action.resetForm();
+    onSubmit: values => {
+      if (update) {
+        handleUpdate(values);
+      } else {
+        local(values);
+      }
     },
   });
 
@@ -68,7 +104,7 @@ function Appointment(props) {
             <h2>Make an Appointment</h2>
             <div className="row">
               <div className="col-6">
-                <NavLink to="/appointment">
+                <NavLink to="/appointment" onClick={() => reset()}>
                   <h2>BookAppoinment</h2>
                 </NavLink>
               </div>
@@ -171,7 +207,6 @@ function Appointment(props) {
                   name="message"
                   rows={5}
                   placeholder="Message (Optional)"
-                  defaultValue={""}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.message}
@@ -187,7 +222,11 @@ function Appointment(props) {
                 </div>
               </div>
               <div className="text-center">
-                <button type="submit">Make an Appointment</button>
+                {update ? (
+                  <button type="submit">Update an Appointment</button>
+                ) : (
+                  <button type="submit">Make an Appointment</button>
+                )}
               </div>
             </Form>
           </Formik>

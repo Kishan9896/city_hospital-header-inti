@@ -35,10 +35,10 @@ function ListAppoinment(props) {
     dataIn();
   };
 
-  const handleEdit = () => {
+  const handleEdit = (id) => {
     
 
-    Ehistory.push("/appointment");
+    Ehistory.push("/appointment", {id: id});
   }
 
 
@@ -71,7 +71,7 @@ function ListAppoinment(props) {
                       {p.date}
                     </CardSubtitle>
                     <CardText>{p.department}</CardText>
-                    <Button className="me-2 bg-gradient" onClick={() => handleEdit()}>Edit</Button>
+                    <Button className="me-2 bg-gradient" onClick={() => handleEdit(p.id)}>Edit</Button>
                     <Button className="bg-danger" onClick={() => handleDelete(p.id)}>Delete</Button>
                   </CardBody>
                 </Card>
