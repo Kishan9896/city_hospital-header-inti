@@ -31,14 +31,19 @@ function Login(props) {
         }
     }
 
+    const handleLogin = () => {
+        localStorage.setItem("user", "123");
+    }
+
     let schema = yup.object().shape(schemaObj)
 
     const formik = useFormik({
         initialValues: initialValu,
         validationSchema: schema,
         onSubmit: (values, action) => {
-            alert(JSON.stringify(values, null, 2));
-            // console.log(action);
+            if (login === "Login") {
+                handleLogin();
+            }
             action.resetForm();
         },
         enableReinitialize: true
