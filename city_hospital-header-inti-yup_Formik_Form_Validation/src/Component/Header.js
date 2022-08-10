@@ -1,7 +1,9 @@
-import React from 'react';
+import { useContext } from 'react';
 import { NavLink } from "react-router-dom";
+import ThemeContext from "../Context/Theme.Action"
 
 function Header(props) {
+  const value = useContext(ThemeContext);
     return (
         <div>
   <div className="main-header">
