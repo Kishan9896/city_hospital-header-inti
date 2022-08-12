@@ -1,4 +1,4 @@
-import { children, createContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 import { TOGGLE_THEME } from "./ActionType";
 import { ThemeReducer } from "./Reducer/Theme.Reducer";
 
@@ -8,7 +8,7 @@ const intival = {
   theme: "light",
 };
 
-export const themeAction = ({ children }) => {
+export const ThemeAction = ({ children }) => {
   const [state, dispatch] = useReducer(ThemeReducer, intival);
 
   const ThemeProvider = (val) => {
@@ -28,4 +28,4 @@ export const themeAction = ({ children }) => {
   );
 };
 
-export default themeAction;
+export default ThemeContext;

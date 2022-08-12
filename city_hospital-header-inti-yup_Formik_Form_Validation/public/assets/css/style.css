@@ -1752,3 +1752,11 @@ section {
 .main-header {
   height: 138px;
 }
+
+.Theme {
+  margin-left: 5px;
+  border: 1px solid #000;
+  background-color: #ed3c0d;
+  color: #fff;
+  border-radius: 5px;
+}
