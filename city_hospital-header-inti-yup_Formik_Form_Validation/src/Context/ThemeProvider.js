@@ -8,10 +8,10 @@ const intival = {
   theme: "light",
 };
 
-export const ThemeAction = ({ children }) => {
+export const ThemeProvider = ({ children }) => {
   const [state, dispatch] = useReducer(ThemeReducer, intival);
 
-  const ThemeProvider = (val) => {
+  const ToggleTheme = (val) => {
     const newtheme = val === "light" ? "dark" : "light";
     dispatch({ type: TOGGLE_THEME, payload: newtheme });
   };
@@ -20,7 +20,7 @@ export const ThemeAction = ({ children }) => {
     <ThemeContext.Provider
       value={{
         ...state,
-        ThemeProvider,
+        ToggleTheme,
       }}
     >
       {children}
