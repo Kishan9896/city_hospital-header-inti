@@ -1,0 +1,3 @@
+function* sagaAll() {
+  yield [singupSaga()];
+}
