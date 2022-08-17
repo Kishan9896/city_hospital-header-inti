@@ -2,7 +2,6 @@ import { React, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import ThemeContext from "../Context/ThemeProvider";
 
-
 function Header(props) {
   const value = useContext(ThemeContext);
 
@@ -34,7 +33,7 @@ function Header(props) {
           </div>
         </div>
         <header id="header" className="fixed-top">
-          <div className={`container d-flex align-items-center ${value.newtheme}`}>
+          <div className={`container d-flex align-items-center ${value.theme}`}>
             <div className="logo">
               <a href="index.html">
                 <h1 className="logo me-auto">City</h1>
@@ -86,7 +85,10 @@ function Header(props) {
             <NavLink to="/login" className="appointment-btn scrollto">
               <span className="d-none d-md-inline">Login/ Signup</span>
             </NavLink>
-            <button className="Theme" onClick={() => value.ToggleTheme(value.theme)}>
+            <button
+              className="Theme"
+              onClick={() => value.ToggleTheme(value.theme)}
+            >
               Theme Change
             </button>
           </div>
