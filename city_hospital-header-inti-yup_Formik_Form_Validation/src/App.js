@@ -17,11 +17,14 @@ import ListAppoinment from "./Container/ListAppoinment/ListAppoinment";
 import PublicRoute from "./publicRoute/publicRoute";
 import PrivateRoute from "./privateRoute/privateRoute";
 import { ThemeProvider } from "./Context/ThemeProvider";
+import { Provider } from "react-redux/es/exports";
+import { store } from "./Redux/Store";
 
 function App() {
   return (
     <>
-      <ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider>
         <Header />
         <Switch>
           <PublicRoute path="/" exact component={Home} />
@@ -45,7 +48,8 @@ function App() {
           />
         </Switch>
         <Footer />
-      </ThemeProvider>
+        </ThemeProvider>
+      </Provider>
     </>
   );
 }

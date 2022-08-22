@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import { Form, Formik, useFormik } from "formik";
 import { useDispatch } from "react-redux";
+import { singupAction } from "../Redux/Action/auth.action";
 
 function Login(props) {
   const [login, setLogin] = useState("Login");
@@ -44,7 +45,7 @@ function Login(props) {
     initialValues: initialValu,
     validationSchema: schema,
     onSubmit: (values, action) => {
-      dispatch();
+      dispatch(singupAction(values));
       if (login === "Login") {
         handleLogin();
       }
@@ -55,7 +56,7 @@ function Login(props) {
 
   const { handleSubmit, handleChange, handleBlur, errors, touched, values } =
     formik;
-  console.log(errors);
+  // console.log(errors);
 
   return (
     <main>
