@@ -11,12 +11,10 @@ function* singupSaga(action) {
   }
 }
 
-export function* mySaga(values) {
-  yield takeEvery(Actiontype.SING_UP, sagaStore);
+function* watchsingup(values) {
+  yield takeEvery(Actiontype.SING_UP, singupSaga);
 }
 
-function* watchSaga() {
-  yield all([singupSaga()]);
+export function* watchAuth() {
+  yield all([watchsingup()]);
 }
-
-export default mySaga;
