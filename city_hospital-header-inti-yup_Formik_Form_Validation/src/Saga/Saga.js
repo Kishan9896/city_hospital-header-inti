@@ -16,8 +16,14 @@ function* singupSaga(action) {
 function* singinSaga(action) {
   try {
     const user = yield call(singin, action.payload);
+    yield put({ type: Actiontype.SET_ALERT, payload: user.text });
     console.log(user);
   } catch (e) {
+    const singinError = {
+      text: e,
+      color: "error",
+    };
+    yield put({ type: Actiontype.RESET_ALERT, payload: singinError });
     console.log(e);
   }
 }

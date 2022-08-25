@@ -46,12 +46,15 @@ export const singin = (values) => {
         if (user.emailVerified) {
           reslove("Login Successfully");
         } else {
-          reject("Please verify your email.");
+          reject("Please check your email.");
         }
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        if (errorCode.localeCompare("auth/wrong-password") === 0) {
+          reject("please check your email or password.");
+        }
       });
   });
 };
