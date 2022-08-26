@@ -1,6 +1,7 @@
 import { React, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import ThemeContext from "../Context/ThemeProvider";
+import Alert from "./Alert/Alert";
 
 function Header(props) {
   const value = useContext(ThemeContext);
@@ -94,6 +95,7 @@ function Header(props) {
           </div>
         </header>
       </div>
+      <Alert/>
     </div>
   );
 }
