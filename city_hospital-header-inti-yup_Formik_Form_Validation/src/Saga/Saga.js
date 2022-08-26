@@ -5,10 +5,9 @@ import { singin, singUp } from "./Sagaapi";
 function* singupSaga(action) {
   try {
     const user = yield call(singUp, action.payload);
-    console.log(user);
-    // yield put({ type: Actiontype.SING_UP, user: action.payload });
+    yield put({ type: Actiontype.SET_ALERT, payload: { text: user, color: "success" } });
   } catch (e) {
-    // yield put({ type: "USER_FETCH_FAILED", message: e.message });
+    yield put({ type: Actiontype.SET_ALERT, payload: { text: e, color: "error" } });
     console.log(e);
   }
 }
@@ -16,23 +15,18 @@ function* singupSaga(action) {
 function* singinSaga(action) {
   try {
     const user = yield call(singin, action.payload);
-    yield put({ type: Actiontype.SET_ALERT, payload: user.text });
-    console.log(user);
+    yield put({ type: Actiontype.SET_ALERT, payload: { text: user, color: "success" } });
   } catch (e) {
-    const singinError = {
-      text: e,
-      color: "error",
-    };
-    yield put({ type: Actiontype.RESET_ALERT, payload: singinError });
+    yield put({ type: Actiontype.SET_ALERT, payload: { text: e, color: "error" } });
     console.log(e);
   }
 }
 
-function* watchsingup(values) {
+function* watchsingup() {
   yield takeEvery(Actiontype.SING_UP, singupSaga);
 }
 
-function* watchsingin(values) {
+function* watchsingin() {
   yield takeEvery(Actiontype.SING_IN, singinSaga);
 }
 
