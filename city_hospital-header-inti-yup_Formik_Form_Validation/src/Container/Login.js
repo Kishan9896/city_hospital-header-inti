@@ -47,10 +47,10 @@ function Login(props) {
     onSubmit: (values, action) => {
       if (login === "Login") {
         dispatch(singInAction(values));
-      } else {
+      } else if (login === "Singup") {
         dispatch(singupAction(values));
       }
-      action.resetForm();
+      // action.resetForm();
     },
     enableReinitialize: true,
   });
