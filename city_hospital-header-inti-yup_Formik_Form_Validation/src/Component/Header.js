@@ -1,10 +1,13 @@
 import { React, useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import ThemeContext from "../Context/ThemeProvider";
 import Alert from "./Alert/Alert";
 
 function Header(props) {
   const value = useContext(ThemeContext);
+  const auth = useSelector((state) => state.auth);
+  console.log(auth, "ajkbvkj");
 
   console.log(value);
   return (
@@ -83,9 +86,16 @@ function Header(props) {
               <span className="d-none d-md-inline">Make an</span>
               Appointment
             </NavLink>
-            <NavLink to="/login" className="appointment-btn scrollto">
-              <span className="d-none d-md-inline">Login/ Signup</span>
-            </NavLink>
+            {auth.value === null ? (
+              <NavLink to="/login" className="appointment-btn scrollto">
+                <span className="d-none d-md-inline">Login/ Signup</span>
+              </NavLink>
+            ) : (
+              <NavLink to="/" className="appointment-btn scrollto">
+                <span className="d-none d-md-inline">Logout</span>
+              </NavLink>
+            )}
+
             <button
               className="Theme"
               onClick={() => value.ToggleTheme(value.theme)}
@@ -95,7 +105,7 @@ function Header(props) {
           </div>
         </header>
       </div>
-      <Alert/>
+      <Alert />
     </div>
   );
 }

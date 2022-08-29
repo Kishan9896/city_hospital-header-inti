@@ -1,13 +1,21 @@
 import { all, call, put, takeEvery } from "redux-saga/effects";
+import { singout } from "../Redux/Action/auth.action";
 import * as Actiontype from "../Redux/Actiontype";
 import { singin, singUp } from "./Sagaapi";
 
 function* singupSaga(action) {
   try {
     const user = yield call(singUp, action.payload);
-    yield put({ type: Actiontype.SET_ALERT, payload: { text: user, color: "success" } });
+    // yield put(singout(user));
+    yield put({
+      type: Actiontype.SET_ALERT,
+      payload: { text: "", color: "success" },
+    });
   } catch (e) {
-    yield put({ type: Actiontype.SET_ALERT, payload: { text: e, color: "error" } });
+    yield put({
+      type: Actiontype.SET_ALERT,
+      payload: { text: e, color: "error" },
+    });
     console.log(e);
   }
 }
@@ -15,9 +23,16 @@ function* singupSaga(action) {
 function* singinSaga(action) {
   try {
     const user = yield call(singin, action.payload);
-    yield put({ type: Actiontype.SET_ALERT, payload: { text: user, color: "success" } });
+    yield put(singout(user));
+    yield put({
+      type: Actiontype.SET_ALERT,
+      payload: { text: "Login successfully", color: "success" },
+    });
   } catch (e) {
-    yield put({ type: Actiontype.SET_ALERT, payload: { text: e, color: "error" } });
+    yield put({
+      type: Actiontype.SET_ALERT,
+      payload: { text: e, color: "error" },
+    });
     console.log(e);
   }
 }

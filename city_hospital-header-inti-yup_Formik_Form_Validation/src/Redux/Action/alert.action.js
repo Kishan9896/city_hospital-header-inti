@@ -7,3 +7,4 @@ export const setAlert = (values) => (dispatch) => {
 export const resetAlert = () => (dispatch) => {
   dispatch({ type: Actiontype.RESET_ALERT });
 };
+

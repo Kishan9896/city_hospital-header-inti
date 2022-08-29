@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../Firebase";
+import { history } from "../History";
 
 export const singUp = (values) => {
   console.log("sagaStore", values);
@@ -44,7 +45,8 @@ export const singin = (values) => {
         // Signed in
         const user = userCredential.user;
         if (user.emailVerified) {
-          reslove("Login Successfully");
+          reslove(user);
+          history.push("/");
         } else {
           reject("Please check your email.");
         }
