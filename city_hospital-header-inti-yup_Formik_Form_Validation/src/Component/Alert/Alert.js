@@ -10,9 +10,9 @@ function Alert(props) {
 
   console.log(alert);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  useEffect (() => {
+  useEffect(() => {
     if (alert.text !== "") {
       enqueueSnackbar(alert.text, {
         variant: alert.color,
@@ -22,12 +22,12 @@ function Alert(props) {
         },
       });
     }
-    
+
     setTimeout(() => {
-      dispatch(resetAlert())
-    }, 2000)
-  }, [alert.text])
-  return <div></div>;
-} 
+      dispatch(resetAlert());
+    }, 2000);
+  }, [alert.text]);
+  return( <div></div>);
+}
 
 export default Alert;

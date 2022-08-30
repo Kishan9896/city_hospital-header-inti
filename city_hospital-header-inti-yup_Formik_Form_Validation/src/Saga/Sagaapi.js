@@ -3,6 +3,7 @@ import {
   onAuthStateChanged,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { auth } from "../Firebase";
 import { history } from "../History";
@@ -38,7 +39,7 @@ export const singUp = (values) => {
 };
 
 export const singin = (values) => {
-  console.log("singin", values);
+  // console.log("singin", values);
   return new Promise((reslove, reject) => {
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
@@ -57,6 +58,18 @@ export const singin = (values) => {
         if (errorCode.localeCompare("auth/wrong-password") === 0) {
           reject("please check your email or password.");
         }
+      });
+  });
+};
+
+export const logoutAPI = (values) => {
+  return new Promise((reslove, reject) => {
+    signOut(auth)
+      .then(() => {
+        reslove({ payload: "Logout successfull" });
+      })
+      .catch((error) => {
+        reject(error.code);
       });
   });
 };
