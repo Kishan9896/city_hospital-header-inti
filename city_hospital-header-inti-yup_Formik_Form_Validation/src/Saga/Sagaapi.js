@@ -3,7 +3,10 @@ import {
   onAuthStateChanged,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
   signOut,
+  signInWithPopup,
+  getAuth,
 } from "firebase/auth";
 import { auth } from "../Firebase";
 import { history } from "../History";
@@ -73,3 +76,23 @@ export const logoutAPI = (values) => {
       });
   });
 };
+
+export const singinWithgoogle = () => {
+  return new Promise((reslove, reject) => {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        reslove(user)
+      }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.customData.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        reject(errorCode)
+      });
+  })
+}

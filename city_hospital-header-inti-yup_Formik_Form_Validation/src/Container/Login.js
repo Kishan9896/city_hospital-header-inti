@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import { Form, Formik, useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { singInAction, singupAction } from "../Redux/Action/auth.action";
+import { singInAction, singInGoogle, singupAction } from "../Redux/Action/auth.action";
 
 function Login(props) {
   const [login, setLogin] = useState("Login");
@@ -38,6 +38,10 @@ function Login(props) {
   const handleLogin = () => {
     localStorage.setItem("user", "123");
   };
+
+  const singinGoogle = () => {
+    dispatch(singInGoogle())
+  }
 
   let schema = yup.object().shape(schemaObj);
 
@@ -174,9 +178,12 @@ function Login(props) {
                 </div>
               ) : (
                 <div className="text-center">
-                  <button type="submit">Singup</button>
+                  <button type="submit">Signup</button>
                 </div>
               )}
+              <div className="text-center mt-3">
+                <button type="submit" onClick={singinGoogle}>Signin With Google</button>
+              </div>
             </Form>
           </Formik>
         </div>

@@ -13,8 +13,6 @@ function Header(props) {
   const handleLogout = () => {
     dispatch(logoutAction());
   };
-
-  console.log(value);
   return (
     <div>
       <div className="main-header">
@@ -91,6 +89,7 @@ function Header(props) {
               <span className="d-none d-md-inline">Make an</span>
               Appointment
             </NavLink>
+
             {auth.value === null ? (
               <NavLink to="/login" className="appointment-btn scrollto">
                 <span className="d-none d-md-inline">Login/ Signup</span>
@@ -103,7 +102,8 @@ function Header(props) {
               >
                 <span className="d-none d-md-inline">Logout</span>
               </NavLink>
-            )}
+            )
+            }
 
             <button
               className="Theme"

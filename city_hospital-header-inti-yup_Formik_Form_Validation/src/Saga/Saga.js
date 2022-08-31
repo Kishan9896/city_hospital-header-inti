@@ -6,12 +6,11 @@ import {
   singout,
 } from "../Redux/Action/auth.action";
 import * as Actiontype from "../Redux/Actiontype";
-import { logoutAPI, singin, singUp } from "./Sagaapi";
+import { logoutAPI, singin, singinWithgoogle, singUp } from "./Sagaapi";
 
 function* singupSaga(action) {
   try {
     const user = yield call(singUp, action.payload);
-    // yield put(singout(user));
     yield put(setAlert({ text: user.payload, color: "success" }));
   } catch (e) {
     yield put(setAlert({ text: e.payload, color: "success" }));
@@ -23,7 +22,18 @@ function* singinSaga(action) {
   try {
     const user = yield call(singin, action.payload);
     yield put(singout(user));
-    yield put(setAlert({ text: user.payload, color: "success" }));
+    yield put(setAlert({ type: Actiontype.SET_ALERT, text: "Login Successfull", color: "success" }));
+  } catch (e) {
+    yield put(setAlert({ text: e.payload, color: "error" }));
+    console.log(e);
+  }
+}
+
+function* googleSignin(action) {
+  try {
+    const user = yield call(singinWithgoogle, action.payload);
+    yield put(singout(user));
+    yield put(setAlert({ type: Actiontype.SET_ALERT, text: "Login Successfull", color: "success" }));
   } catch (e) {
     yield put(setAlert({ text: e.payload, color: "error" }));
     console.log(e);
@@ -48,10 +58,14 @@ function* watchsingin() {
   yield takeEvery(Actiontype.SING_IN, singinSaga);
 }
 
+function* watchsingingoogle() {
+  yield takeEvery(Actiontype.SIGN_IN_Google, googleSignin);
+}
+
 function* watchlogout() {
   yield takeEvery(Actiontype.LOG_OUT, logout);
 }
 
 export function* watchAuth() {
-  yield all([watchsingup(), watchsingin(), watchlogout()]);
+  yield all([watchsingup(), watchsingin(), watchlogout(), watchsingingoogle()]);
 }
