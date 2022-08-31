@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import { Form, Formik, useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { singInAction, singInGoogle, singupAction } from "../Redux/Action/auth.action";
+import { signInAction, signInGoogle, signupAction, singInAction, singInGoogle, singupAction } from "../Redux/Action/auth.action";
 
 function Login(props) {
   const [login, setLogin] = useState("Login");
@@ -22,7 +22,7 @@ function Login(props) {
       email: "",
       password: "",
     };
-  } else if (login === "Singup") {
+  } else if (login === "Signup") {
     schemaObj = {
       name: yup.string().required("Please Enter Your Name."),
       email: yup.string().required("Please Enter Your Email.").email(),
@@ -39,8 +39,8 @@ function Login(props) {
     localStorage.setItem("user", "123");
   };
 
-  const singinGoogle = () => {
-    dispatch(singInGoogle())
+  const signinGoogle = () => {
+    dispatch(signInGoogle())
   }
 
   let schema = yup.object().shape(schemaObj);
@@ -50,9 +50,9 @@ function Login(props) {
     validationSchema: schema,
     onSubmit: (values, action) => {
       if (login === "Login") {
-        dispatch(singInAction(values));
-      } else if (login === "Singup") {
-        dispatch(singupAction(values));
+        dispatch(signInAction(values));
+      } else if (login === "Signup") {
+        dispatch(signupAction(values));
       }
       // action.resetForm();
     },
@@ -182,7 +182,7 @@ function Login(props) {
                 </div>
               )}
               <div className="text-center mt-3">
-                <button type="submit" onClick={singinGoogle}>Signin With Google</button>
+                <button type="submit" onClick={signinGoogle}>Signin With Google</button>
               </div>
             </Form>
           </Formik>

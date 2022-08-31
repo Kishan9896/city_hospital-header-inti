@@ -8,7 +8,7 @@ const initval = {
 
 export const authReducer = (state = initval, action) => {
   switch (action.type) {
-    case Actiontype.SINGED_IN:
+    case Actiontype.SIGNED_IN:
       return {
         ...state,
         isLoding: false,

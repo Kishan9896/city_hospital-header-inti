@@ -11,7 +11,7 @@ import {
 import { auth } from "../Firebase";
 import { history } from "../History";
 
-export const singUp = (values) => {
+export const signUp = (values) => {
   console.log("sagaStore", values);
   return new Promise((reslove, reject) => {
     createUserWithEmailAndPassword(auth, values.email, values.password)
@@ -24,9 +24,6 @@ export const singUp = (values) => {
             sendEmailVerification(auth.currentUser).then(() => {
               reslove("Email Verfication sent!");
             });
-          } else {
-            // User is signed out
-            // ...
           }
         });
       })
@@ -41,12 +38,10 @@ export const singUp = (values) => {
   });
 };
 
-export const singin = (values) => {
-  // console.log("singin", values);
+export const signin = (values) => {
   return new Promise((reslove, reject) => {
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
         if (user.emailVerified) {
           reslove(user);
@@ -77,7 +72,7 @@ export const logoutAPI = (values) => {
   });
 };
 
-export const singinWithgoogle = () => {
+export const signinWithgoogle = () => {
   return new Promise((reslove, reject) => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
