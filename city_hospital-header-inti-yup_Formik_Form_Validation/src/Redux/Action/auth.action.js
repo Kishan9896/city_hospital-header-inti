@@ -23,3 +23,7 @@ export const logoutAction = () => (dispatch) => {
 export const loggedoutAction = () => (dispatch) => {
   dispatch({ type: Actiontype.LOGGED_OUT });
 };
+
+export const forgotPassword = () => (dispatch) => {
+  dispatch({ type: Actiontype.FORGOT_PASS })
+}

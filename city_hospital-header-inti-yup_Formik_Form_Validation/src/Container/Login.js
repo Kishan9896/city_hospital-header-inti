@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import { Form, Formik, useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { signInAction, signInGoogle, signupAction, singInAction, singInGoogle, singupAction } from "../Redux/Action/auth.action";
+import { forgotPassword, signInAction, signInGoogle, signupAction, singInAction, singInGoogle, singupAction } from "../Redux/Action/auth.action";
 
 function Login(props) {
   const [login, setLogin] = useState("Login");
@@ -41,6 +41,10 @@ function Login(props) {
 
   const signinGoogle = () => {
     dispatch(signInGoogle())
+  }
+
+  const forgotpassword = () => {
+    dispatch(forgotPassword())
   }
 
   let schema = yup.object().shape(schemaObj);
@@ -170,7 +174,7 @@ function Login(props) {
               </button>
               {reset ? (
                 <div className="text-center">
-                  <button type="submit">submit</button>
+                  <button type="submit" onClick={forgotpassword}>submit</button>
                 </div>
               ) : login === "Login" ? (
                 <div className="text-center">

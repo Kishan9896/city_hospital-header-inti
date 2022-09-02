@@ -4,6 +4,7 @@ export const SIGN_IN_Google = "SIGN_IN_Google";
 export const SIGNED_IN = "SIGNED_IN";
 export const LOG_OUT = "LOG_OUT";
 export const LOGGED_OUT = "LOGGED_OUT";
+export const FORGOT_PASS = "FORGOT_PASS";
 
 export const SET_ALERT = "SET_ALERT";
 export const RESET_ALERT = "RESET_ALERT";
